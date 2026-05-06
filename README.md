@@ -79,7 +79,25 @@ Khuyến nghị:
 
 File: [export_PP-Doclayout_plus_L.py](/home/nqd/workspace/project/PaddleX/kaggle/local/export_PP-Doclayout_plus_L.py)
 
-### 1. Tạo môi trường sạch
+### 1. Clone PaddleX
+
+```bash
+git clone https://github.com/PaddlePaddle/PaddleX.git
+cd PaddleX
+git checkout 0acbb30720b71566717d12540381187b1fff0948
+```
+
+### 2. Clone Fine-tune PP-Doclayout+
+
+```bash
+cd ..
+git clone https://github.com/DongNQ225284/Fine-tune_PP-Doclayout_plus
+
+#move files from Fine-tune_PP-Doclayout_plus to PaddleX
+mv Fine-tune_PP-Doclayout_plus/* ./PaddleX
+```
+
+### 3. Tạo môi trường sạch
 
 Ví dụ với `conda`:
 
@@ -88,7 +106,7 @@ conda create -y -n pp_doclayout_export python=3.10
 conda activate pp_doclayout_export
 ```
 
-### 2. Cài dependency tối thiểu
+### 3. Cài dependency tối thiểu
 
 File requirements:
 
@@ -102,7 +120,7 @@ python -m pip install -r requirements.txt
 paddlex --install PaddleDetection -y
 ```
 
-### 3. Đặt checkpoint vào đúng chỗ
+### 4. Đặt checkpoint vào đúng chỗ
 
 Đặt 2 file tải từ Kaggle vào cùng một thư mục:
 
@@ -117,7 +135,7 @@ Lưu ý:
 - `config.yaml` phải là file của đúng run train sinh ra `best_model.pdparams`
 - nếu `config.yaml` còn các path kiểu `/kaggle/working/...` thì sửa sang path local writable trước khi export
 
-### 4. Chạy export
+### 5. Chạy export
 
 Nếu bạn đang đứng trong env sạch đã cài xong dependency:
 
