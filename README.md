@@ -94,7 +94,7 @@ cd ..
 git clone https://github.com/DongNQ225284/Fine-tune_PP-Doclayout_plus
 
 #move files from Fine-tune_PP-Doclayout_plus to PaddleX
-mv Fine-tune_PP-Doclayout_plus/export ./PaddleX
+cp -r Fine-tune_PP-Doclayout_plus/export ./PaddleX
 rm -rf Fine-tune_PP-Doclayout_plus
 ```
 
