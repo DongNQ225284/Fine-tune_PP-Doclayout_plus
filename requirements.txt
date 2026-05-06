@@ -1,0 +1,14 @@
+# Local export environment for PP-DocLayout_plus-L
+#
+# Usage:
+#   python -m pip install --upgrade pip wheel "setuptools<81"
+#   python -m pip install -r requirements.txt
+#   paddlex --install PaddleDetection -y
+#
+# Notes:
+# - paddlepaddle is intentionally pinned here because export was validated with 3.2.0
+# - numpy must stay < 2 to avoid imgaug incompatibility in PaddleDetection export
+
+numpy<2
+paddlepaddle==3.2.0
+-e .[base]
