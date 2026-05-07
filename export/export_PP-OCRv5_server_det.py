@@ -25,7 +25,7 @@ def ensure_dir(path: Path) -> None:
 
 
 def print_train_config_summary(train_config_path: Path) -> None:
-    pattern = re.compile(r"(num_classes|save_dir|vdl_log_dir|pdx_model_name)")
+    pattern = re.compile(r"(model:|module:|dataset_dir:|save_dir:|vdl_log_dir:)")
     print()
     print("Pre-check: train config summary")
     for idx, line in enumerate(train_config_path.read_text(encoding="utf-8").splitlines(), 1):
@@ -41,10 +41,10 @@ def main() -> int:
 
     config_path = getenv_path(
         "CONFIG_PATH",
-        str(root_dir / "paddlex/configs/modules/layout_detection/PP-DocLayout_plus-L.yaml"),
+        str(root_dir / "paddlex/configs/modules/text_detection/PP-OCRv5_server_det.yaml"),
     )
-    weight_dir = getenv_path("WEIGHT_DIR", str(root_dir / "weights/best_model"))
-    weight_path = getenv_path("WEIGHT_PATH", str(weight_dir / "best_model.pdparams"))
+    weight_dir = getenv_path("WEIGHT_DIR", str(root_dir / "weights/best_accuracy"))
+    weight_path = getenv_path("WEIGHT_PATH", str(weight_dir / "best_accuracy.pdparams"))
     train_config_path = getenv_path("TRAIN_CONFIG_PATH", str(weight_dir / "config.yaml"))
     export_dir = getenv_path("EXPORT_DIR", str(root_dir / "inference"))
 
@@ -60,7 +60,7 @@ def main() -> int:
     ensure_file(weight_path, "Weight file")
     ensure_file(train_config_path, "Train config")
 
-    print("Exporting PP-DocLayout_plus-L 3cls with:")
+    print("Exporting PP-OCRv5_server_det with:")
     print(f"  ROOT_DIR={root_dir}")
     print(f"  PYTHON_BIN={python_bin}")
     print(f"  CONDA_ENV={conda_env or '<not set>'}")
@@ -73,9 +73,8 @@ def main() -> int:
 
     print()
     print("Important:")
-    print("  - TRAIN_CONFIG_PATH must be the config.yaml from the same run as best_model.pdparams")
-    print("  - save_dir and vdl_log_dir inside config.yaml must not point to /kaggle/...")
-    print("  - label_list in exported inference.yml may still need manual adjustment")
+    print("  - TRAIN_CONFIG_PATH must be the config.yaml from the same run as best_accuracy.pdparams")
+    print("  - For local evaluate, pass Global.dataset_dir explicitly if train config still points to Kaggle paths")
 
     env = os.environ.copy()
     env.update(
