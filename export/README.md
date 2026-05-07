@@ -41,6 +41,7 @@ File requirements:
 Từ root repo `PaddleX`:
 
 ```bash
+cd PaddleX
 python -m pip install --upgrade pip wheel "setuptools<81"
 python -m pip install -r export/requirements.txt
 paddlex --install PaddleDetection -y
@@ -59,7 +60,7 @@ weights/best_model/
 Lưu ý:
 
 - `config.yaml` phải là file của đúng run train sinh ra `best_model.pdparams`
-- nếu `config.yaml` còn các path kiểu `/kaggle/working/...` thì sửa sang path local writable trước khi export
+- nếu `config.yaml` còn các path kiểu `/kaggle/working/...` thì phải đổi ít nhất các đường dẫn ghi output như `save_dir` và `vdl_log_dir` sang path local writable trước khi export, ví dụ `./weights/best_model/output/...`
 
 ### 5. Chạy export
 
