@@ -89,3 +89,39 @@ export_dir/
 ├── inference.pdiparams
 └── inference.yml
 ```
+
+## Evaluate sau khi train
+
+Điều kiện:
+
+- có dataset local dạng COCO
+- trong `dataset_dir` có `annotations/instance_val.json`
+- có file weight `weights/best_model/best_model.pdparams`
+
+Ví dụ:
+
+```bash
+conda run -n paddleX python3 main.py \
+  -c paddlex/configs/modules/layout_detection/PP-DocLayout_plus-L.yaml \
+  -o Global.mode=evaluate \
+  -o Global.dataset_dir=/path/to/dataset \
+  -o Evaluate.weight_path=./weights/best_model/best_model.pdparams
+```
+
+Lưu ý:
+
+- repo hiện tại chưa kèm dataset local, nên `weights/best_model/config.yaml` chỉ dùng để giữ thông tin của run train gốc
+- nếu `config.yaml` còn `dataset_dir` kiểu Kaggle thì không ảnh hưởng tới export, nhưng muốn evaluate thì vẫn phải truyền `-o Global.dataset_dir=/path/to/dataset`
+
+## Infer demo sau khi export
+
+Sau khi export xong và đã có thư mục `inference/`, có thể infer trực tiếp với ảnh local:
+
+```bash
+cd /path/to/PaddleX
+conda run -n paddleX python3 main.py \
+  -c paddlex/configs/modules/layout_detection/PP-DocLayout_plus-L.yaml \
+  -o Global.mode=predict \
+  -o Predict.model_dir=./inference \
+  -o Predict.input=/path/to/demo.jpg
+```
