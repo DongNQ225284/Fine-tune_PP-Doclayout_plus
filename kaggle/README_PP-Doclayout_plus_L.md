@@ -10,10 +10,44 @@ Cấu trúc mong đợi:
 
 ```text
 dataset/
+├── images/
+│   ├── train/
+│   ├── valid/
+│   └── test/          # optional
+└── annotations/
+    ├── instance_train.json
+    ├── instance_valid.json
+    └── instance_test.json    # optional
+```
+
+Trong đó:
+
+```text
+images/train/   <-> instance_train.json
+images/valid/   <-> instance_valid.json
+images/test/    <-> instance_test.json  # nếu có test
+```
+
+`file_name` trong COCO JSON nên trỏ đúng tới ảnh theo đường dẫn relative dưới `images/`, ví dụ:
+
+```text
+train/sample_00001.png
+valid/sample_01001.png
+test/sample_02001.png
+```
+
+Notebook sẽ bắt buộc có `train` và `valid`. Phần `test` là tùy chọn.
+
+Ví dụ tối thiểu:
+
+```text
+dataset/
 ├── annotations/
 │   ├── instance_train.json
-│   └── instance_val.json
+│   └── instance_valid.json
 └── images/
+    ├── train/
+    └── valid/
 ```
 
 2. Pretrained weight `PP-DocLayout_plus-L_pretrained.pdparams`
